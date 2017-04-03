@@ -6,19 +6,100 @@ function love.load()
 	love.window.setMode(w, h)
 
 	pts = {}
-	--State the number of desired points here
-	numPts = 300
+
+	ReadFile = true
+
+
+	--State the number of desired points here if ReadFile is false
+	numPts = 50
+
+	if ReadFile then
+		fileToRead = 6
+
+		if fileToRead == 1 then
+			fx = "Ex1-x"
+			fy = "Ex1-y"
+		elseif fileToRead == 2 then
+			fx = "Ex2-x"
+			fy = "Ex2-y"
+		elseif fileToRead == 3 then
+			fx = "Ex3-x"
+			fy = "Ex3-y"
+		elseif fileToRead == 4 then
+			fx = "Ex4-x"
+			fy = "Ex4-y"
+		elseif fileToRead == 5 then
+			fx = "Ex5-x"
+			fy = "Ex5-y"
+		else
+			fx = "Ex6-x"
+			fy = "Ex6-y"
+		end
+
+		nx = {}
+		ny = {}
+
+		for line in love.filesystem.lines(fx) do
+			table.insert(nx, tonumber(line))
+		end
+
+		for line in love.filesystem.lines(fy) do
+			table.insert(ny, tonumber(line))
+		end
+
+		xMax = 0
+		xMin = 0
+
+		yMax = 0
+		yMin = 0
+
+		for i = 1, table.getn(nx), 1 do
+
+			nx[i] = tonumber(nx[i])
+			ny[i] = tonumber(ny[i])
+
+			if nx[i] > xMax then
+				xMax = nx[i]
+			end
+			if nx[i] < xMin then
+				xMin = nx[i]
+			end
+
+			if ny[i] > yMax then
+				yMax = ny[i]
+			end
+
+			if ny[i] < yMin then
+				yMin = ny[i]
+			end
+		end 
+
+		for i = 1, table.getn(nx), 1 do
+
+			xStd = (nx[i] - xMin) / (xMax - xMin)
+			yStd = (ny[i] - yMin) / (yMax - yMin)
+
+			nx[i] = xStd * (w - 30) + 30
+			ny[i] = yStd * (h - 75) + 50
+
+		end
+
+		for i = 1, table.getn(nx), 1 do
+			table.insert( pts , { nx[i] , ny[i] } )
+		end
+	else
+
+		--Generating points randomly between set numbers
+		--chose these numbers because they don't overlap the printed info or scales
+		for i = 1, numPts, 1 do
+			tmp = math.floor(math.random(30, w))
+			tmp2 = math.floor(math.random(50, h - 25))
+			table.insert(pts, {tmp, tmp2})
+		end
+	end
 
 	--starting the runtime clock
 	StartTime = love.timer.getTime()
-
-	--Generating points randomly between set numbers
-	--chose these numbers because they don't overlap the printed info or scales
-	for i = 1, numPts, 1 do
-		tmp = math.floor(math.random(30, w))
-		tmp2 = math.floor(math.random(50, h - 25))
-		table.insert(pts, {tmp, tmp2})
-	end
 
 	--Sorting the array of points
 	SortCoordArr(pts)
@@ -30,7 +111,7 @@ function love.load()
 	time = love.timer.getTime() - StartTime
 
 	--displaying number of points and runtime in ms
-	statement = "# Points: " .. numPts
+	statement = "# Points: " .. table.getn(pts)
 	statement2 = "Runtime was: " .. (time* 1000) .. " ms"
 
 	love.graphics.setPointSize(5)
