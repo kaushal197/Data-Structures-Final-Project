@@ -1,5 +1,5 @@
-var frame = 240;
-var bins = 5;
+var frame = 480;
+var bins = 13;
 var board = Array.apply(null, Array(bins)).map(Number.prototype.valueOf,0);
 var n = 500;
 var start_n = n;
@@ -19,15 +19,7 @@ function setup() {
   background("#333");
   noStroke();
 
-  if(n>100000){
-    bins = bins*3;
-    board = Array.apply(null, Array(bins)).map(Number.prototype.valueOf,0);
-  }else if(n>10000){
-    bins = bins*3;
-    board = Array.apply(null, Array(bins)).map(Number.prototype.valueOf,0);
-  }
-
-  textSize(frame/20);
+  textSize(int(frame/20));
   textAlign(CENTER);
   frameRate(60);
 }
@@ -39,22 +31,24 @@ function draw() {
   text("Max Value: " + int(Math.max.apply(null, board)*(1/fill_size)) + "/" + start_n, width/2, height/3);
 
   if(!pause){
-    if(animate){
-      for(var i = 0; (n > 0) && (i <= start_n/(log(start_n)**2)); i++){
+    if(animate === "true"){
+      for(var i = 0; (n > 0) && (i <= start_n/(n)); i++){
         if(!pause){
           place();
           n--;
         }
       }
-    else{
+    }else{
       console.time("place");
       for(var i = 0; n > 0; i++){
         place();
         n--;
       }
       console.timeEnd("place");
-    }
+      pause = true;
+    } 
   }
+
 
   while(Math.max.apply(null, board) >= height*0.6){
     fill_size = fill_size/fix_val;
@@ -62,7 +56,6 @@ function draw() {
   }
 
   grid();
-  pause = true;
 }
 
 function grid(){
@@ -79,12 +72,10 @@ function grid(){
 // n number of balls to be dropped
 function place(){
 
-  var j = 0;
   var loc = floor(bins/2);
 
-  while(j < (bins-1)){
+  for(var j=0; j < (bins-1); j++){
     loc += random([0.5, -0.5]);
-    j++;
   }
 
   if((loc*10)%10 >= 5){
