@@ -6,12 +6,14 @@ var start_n = n;
 var fix_val = 4/3;
 var fill_size = 10;
 var pause = false;
+var animate = true;
 
 function setup() {
   createCanvas(frame*(4/3), frame);
 
   var params = getURLParams();
   n = params.n;
+  animate = params.animate;
   start_n = n;
 
   background("#333");
@@ -36,22 +38,23 @@ function draw() {
   text(n + " " + (round(int(frameRate())/10))*10, width/2, height/4);
   text("Max Value: " + int(Math.max.apply(null, board)*(1/fill_size)) + "/" + start_n, width/2, height/3);
 
-  /*for(var i = 0; (n > 0) && (i <= start_n/(log(start_n)**2)); i++){
-    if(!pause){
-      place();
-      n--;
-    }
-  }*/
-
   if(!pause){
-    console.time("place");
-    for(var i = 0; n > 0; i++){
-      place();
-      n--;
+    if(animate){
+      for(var i = 0; (n > 0) && (i <= start_n/(log(start_n)**2)); i++){
+        if(!pause){
+          place();
+          n--;
+        }
+      }
+    else{
+      console.time("place");
+      for(var i = 0; n > 0; i++){
+        place();
+        n--;
+      }
+      console.timeEnd("place");
     }
-    console.timeEnd("place");
   }
-
 
   while(Math.max.apply(null, board) >= height*0.6){
     fill_size = fill_size/fix_val;
