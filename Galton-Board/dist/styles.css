@@ -1,0 +1,78 @@
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+body {
+  /* Gradient generated with http://colorzilla.com/ */
+  background: #7791a8;
+  /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover, #7791a8 11%, #34495e 100%);
+  /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover, #7791a8 11%, #34495e 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center, #7791a8 11%, #34495e 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
+
+#galton-container {
+  margin-top: 10px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); }
+
+.form-container {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  border: 4px solid #347cce;
+  background: #3488db;
+  vertical-align: middle;
+  min-width: 300px;
+  padding: 20px; }
+  .form-container h1 {
+    text-shadow: #34495e 0 1px 0;
+    font-size: 24px;
+    margin: 0 0 10px 0;
+    font-weight: bold;
+    text-align: center; }
+
+.form-field {
+  border: 0;
+  background: #ecf0f1;
+  border-radius: 2px;
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 280px; }
+  .form-field:focus {
+    background: #ffe3cc;
+    color: #2c3e50; }
+
+.form-title {
+  margin-bottom: 10px;
+  color: #ecf0f1;
+  text-shadow: #000 0 1px 0; }
+
+.submit-container {
+  margin: 8px 0;
+  text-align: right; }
+
+.submit-button {
+  border: 1px solid #5a941c;
+  background: #2ecc70;
+  border-radius: 0px;
+  color: #34495e;
+  font-family: Helvetica, serif;
+  padding: 8.5px 18px;
+  font-size: 14px;
+  vertical-align: middle; }
+  .submit-button:hover {
+    border: 1px solid #5a941c;
+    background: #2ecc70;
+    color: #ecf0f1; }
+  .submit-button:active {
+    text-shadow: #31540c 0 1px 0;
+    border: 1px solid #447314;
+    background: #27ae5f;
+    color: #fff; }
+
+/*# sourceMappingURL=styles.css.map */

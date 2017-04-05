@@ -1,0 +1,21 @@
+html
+  head
+    title Galton Board Simulator
+    link(href="styles.css" rel="stylesheet")  
+   
+  body
+    .form-container
+      h1.form-title Galton Board Simulator
+      br
+      each item in [["balls", 500], ["bins", 5], ["seconds", 2]]
+        label(for=item[0]).form-title Number of #{item[0]}:
+        br
+        input(type="number" value=item[1] id=item[0]).form-field
+        br
+      .submit-container
+      button#run.submit-button Run!
+      br
+      #galton-container
+  script(src="p5.js")
+  script(src="p5.dom.js")
+  script(src="script.js")
