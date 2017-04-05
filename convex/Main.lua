@@ -1,4 +1,4 @@
-function love.load()
+function love.load(args)
 	math.randomseed(os.time())
 	bg = love.graphics.newImage("Grid.png")
 	h = 750
@@ -7,45 +7,29 @@ function love.load()
 
 	pts = {}
 
-	ReadFile = true
-
+	--Read from command line if present
+	ReadFile = #args > 1
 
 	--State the number of desired points here if ReadFile is false
 	numPts = 50
 
 	if ReadFile then
-		fileToRead = 6
-
-		if fileToRead == 1 then
-			fx = "Ex1-x"
-			fy = "Ex1-y"
-		elseif fileToRead == 2 then
-			fx = "Ex2-x"
-			fy = "Ex2-y"
-		elseif fileToRead == 3 then
-			fx = "Ex3-x"
-			fy = "Ex3-y"
-		elseif fileToRead == 4 then
-			fx = "Ex4-x"
-			fy = "Ex4-y"
-		elseif fileToRead == 5 then
-			fx = "Ex5-x"
-			fy = "Ex5-y"
-		else
-			fx = "Ex6-x"
-			fy = "Ex6-y"
-		end
-
+		-- fx = "Ex" .. args[2] .. "-x"
+		filename = "exercise-" .. args[2] .. ".csv"
+		
 		nx = {}
 		ny = {}
 
-		for line in love.filesystem.lines(fx) do
-			table.insert(nx, tonumber(line))
+		for line in love.filesystem.lines(filename) do
+			local delim = string.find(line, ",")
+			local x = string.sub(line, 1, delim - 1)
+			local y = string.sub(line, delim + 1, -1)
+			if (x ~= "x") then
+				table.insert(nx, tonumber(x))
+				table.insert(ny, tonumber(y))
+			end
 		end
 
-		for line in love.filesystem.lines(fy) do
-			table.insert(ny, tonumber(line))
-		end
 
 		xMax = 0
 		xMin = 0
