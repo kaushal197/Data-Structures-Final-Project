@@ -1,9 +1,9 @@
 # Data-Structures-Final-Project
 
-## K-Means
+## Galton Board
 
-TODO
-- Needs a file reading system, mostly for the last exercise
-- Might be better to rewrite the program into python and use matplotlib
-- Need to clean up code to analyze for time complexity, really messy but i'll take care of it
-- cringe alert: completely misused JS, you've been warned
+1. Open index.html from Galton-Board/dist
+2. Enter the # of Balls to be dropped
+3. Hit the Run button
+
+## Convex Hull
